@@ -8,7 +8,7 @@ Config {
        , borderColor =  "#646464"
        , lowerOnStart = True
        , commands = [ Run StdinReader
-                    , Run Weather "KBOS" ["--template","Weather: <skyCondition> | <fc=#4682B4> <tempF>F </fc>"] 36000
+                    , Run Weather "KBOS" ["--template","Weather: <skyCondition> : <fc=#4682B4> <tempF>F </fc>"] 12000
                     , Run Network "enp4s0" [] 10
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     -- cpu core temperature monitor
@@ -22,9 +22,10 @@ Config {
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Com "/bin/python2" ["/home/ddoss/dotfiles/xmonad-pulsevolume/show-volume.py"] "vol" 1
     		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% : %coretemp% | %memory% * %swap% | %enp4s0%}{ %KBOS% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% | %cpu% : %coretemp% | %memory% * %swap% | %enp4s0%}{ Vol: %vol% | %KBOS% | <fc=#ee9a00>%date%</fc>"
        }
