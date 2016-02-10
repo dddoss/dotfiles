@@ -36,4 +36,7 @@ myConfig = baseConfig
       --
       -- volumedown button
       , (("M4-<Down>"), spawn "/home/ddoss/dotfiles/xmonad-pulsevolume/pulse-volume.sh decrease")
+      , (("M4-<Right>"), spawn "/home/ddoss/dotfiles/xmonad-pulsevolume/pulse-volume.sh reset")
+      , (("M4-<Home>"), spawn "xbacklight -inc 10")
+      , (("M4-<End>"), spawn "xbacklight -dec 10")
       ]

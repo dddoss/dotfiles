@@ -1,0 +1,44 @@
+Config {
+         -- appearance
+         font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
+       , bgColor =      "black"
+       , fgColor =      "#646464"
+       , position =     Top
+       , border =       BottomB
+       , borderColor =  "#646464"
+       , lowerOnStart = True
+       , commands = [ Run StdinReader
+                    , Run Weather "KBOS" ["--template","Weather: <skyCondition> : <fc=#4682B4> <tempF>F </fc>"] 12000
+                    , Run Network "wlp2s0" [] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    -- cpu core temperature monitor
+                    , Run CoreTemp       [ "--template" , "Temp: <core0>C"
+                                            , "--Low"      , "55"        -- units: C
+                                            , "--High"     , "80"        -- units: C
+                                            , "--low"      , "darkgreen"
+                                            , "--normal"   , "white"
+                                            , "--high"     , "darkred"
+                                            ] 50
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+		    , Run BatteryP ["AC", "BAT0"]
+			  ["-t", "<acstatus>"
+			  , "-L", "10", "-H", "80"
+			  , "-l", "red", "-h", "green"
+			  , "--" -- battery specific options
+				   -- discharging status
+				   , "-o"	, "<left>% (<timeleft>)"
+				   -- AC "on" status
+				   , "-O"	, "<fc=#dAA520>Charging</fc>"
+				   -- charged status
+				   , "-i"	, "<fc=#006000>Charged</fc>"
+			  , "--", "-O", "Charging", "-o", "Battery: <left>%"
+			  ] 10
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Com "/bin/python2" ["/home/ddoss/dotfiles/xmonad-pulsevolume/show-volume.py"] "vol" 1
+    		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% | %cpu% : %coretemp% | %battery% | %memory% * %swap% | %wlp2s0%}{ Vol: %vol% | %KBOS% | <fc=#ee9a00>%date%</fc>"
+       }
