@@ -1,0 +1,7 @@
+dropbox
+libcurl-compat
+minecraft
+ncurses5-compat-libs
+package-query
+spotify
+yaourt
