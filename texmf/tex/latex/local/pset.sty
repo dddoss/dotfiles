@@ -40,6 +40,7 @@
 \let\@problemset\@empty
 \let\@collab\@empty
 \newcommand{\problemset}[1]{\def\@problemset{#1}}
+\newcommand{\class}[1]{\def\@class{#1}}
 \newcommand{\collab}[1]{\def\@collab{#1}}
 
 % Command to make the header box.
@@ -49,7 +50,7 @@
       \vbox{
         \hbox to 6.25in { \@author \hfill \@date}
         \vspace{1mm}
-        \hbox to 6.25in {\bf \hfill \@class Problem Set \@problemset\ \hfill}
+        \hbox to 6.25in {\bf \hfill \@class\,  Problem Set \@problemset\ \hfill}
         \vspace{1mm}
         \hbox to 6.25in { Collaborators: {\it \@collab} \hfill}
       }
@@ -73,7 +74,7 @@
   \thispagestyle{plain}
   \header
   \lhead{\@author}
-  \rhead{\textbf{\@class Problem Set \@problemset}}
+  \rhead{\textbf{\@class\, Problem Set \@problemset}}
   \cfoot{\thepage}
   \pagestyle{fancy}
 }
